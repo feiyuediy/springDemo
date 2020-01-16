@@ -43,6 +43,25 @@ public class Controller {
 
         return listUsers;
     }
+    @RequestMapping(method = RequestMethod.GET,value = "/users1")
+    public List<User> getUsers1(){
+        List<User> listUsers;
+        //获取一个连接
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            //得到映射器
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            //调用接口中的方法去执行xml文件中的SQL语句
+            listUsers = userMapper.getUsers();
+            //要提交后才会生效
+            sqlSession.commit();
+        }finally {
+            //最后记得关闭连接
+            sqlSession.close();
+        }
+
+        return listUsers;
+    }
     //这里用的是路径变量，就是{}括起来的，会当做变量读进来
     @RequestMapping(method = RequestMethod.GET,value = "/users/{userId}")
     public User getUser(@PathVariable int userId){
@@ -74,9 +93,9 @@ public class Controller {
     public boolean updateUser(@PathVariable int userid,@PathVariable String name){
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            UserMapper userMapper1 = sqlSession.getMapper(UserMapper.class);
             User user = new User(userid,name);
-            userMapper.updateUser(user);
+            userMapper1.updateUser(user);
             sqlSession.commit();
         }finally {
             sqlSession.close();
@@ -99,6 +118,19 @@ public class Controller {
 
     @RequestMapping(method = RequestMethod.DELETE,value = "/users/{userId}")
     public boolean deleteUser(@PathVariable int userId){
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.deleteUser(userId);
+            sqlSession.commit();
+        }finally {
+            sqlSession.close();
+        }
+        return true;
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE,value = "/users1/{userId}")
+    public boolean deleteUser1(@PathVariable int userId){
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
