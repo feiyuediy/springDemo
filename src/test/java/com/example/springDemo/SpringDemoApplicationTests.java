@@ -9,5 +9,9 @@ class SpringDemoApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+	@Test
+	void tes1() {
+
+	}
 
 }
