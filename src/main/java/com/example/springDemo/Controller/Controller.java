@@ -142,6 +142,19 @@ public class Controller {
         return true;
     }
 
+    @RequestMapping(method = RequestMethod.DELETE,value = "/users2/{userId}")
+    public boolean deleteUser2(@PathVariable int userId){
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.deleteUser(userId);
+            sqlSession.commit();
+        }finally {
+            sqlSession.close();
+        }
+        return true;
+    }
+
 
 }
 
