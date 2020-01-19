@@ -31,9 +31,9 @@ public class Controller {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             //得到映射器
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            UserMapper userMapper7 = sqlSession.getMapper(UserMapper.class);
             //调用接口中的方法去执行xml文件中的SQL语句
-            listUsers = userMapper.getUsers();
+            listUsers = userMapper7.getUsers();
             //要提交后才会生效
             sqlSession.commit();
         }finally {
@@ -107,8 +107,8 @@ public class Controller {
     public boolean deleteUsers(){
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            userMapper.deleteAllUsers();
+            UserMapper userMapper3 = sqlSession.getMapper(UserMapper.class);
+            userMapper3.deleteAllUsers();
             sqlSession.commit();
         }finally {
             sqlSession.close();
@@ -142,18 +142,6 @@ public class Controller {
         return true;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE,value = "/users2/{userId}")
-    public boolean deleteUser2(@PathVariable int userId){
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        try {
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            userMapper.deleteUser(userId);
-            sqlSession.commit();
-        }finally {
-            sqlSession.close();
-        }
-        return true;
-    }
 
 
 }
