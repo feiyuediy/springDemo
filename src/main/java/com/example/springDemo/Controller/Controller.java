@@ -66,13 +66,13 @@ public class Controller {
     @RequestMapping(method = RequestMethod.GET,value = "/users/{userId}")
     public User getUser(@PathVariable int userId){
         User user;
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession1 = sqlSessionFactory.openSession();
         try {
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            UserMapper userMapper = sqlSession1.getMapper(UserMapper.class);
             user = userMapper.getById(userId);
-            sqlSession.commit();
+            sqlSession1.commit();
         }finally {
-            sqlSession.close();
+            sqlSession1.close();
         }
         return user;
     }
