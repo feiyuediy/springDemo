@@ -79,13 +79,13 @@ public class Controller {
     //RequestBody这个注解可以接收json数据
     @RequestMapping(method = RequestMethod.POST,value = "/user")
     public boolean setUser(@RequestBody String name){
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession3 = sqlSessionFactory.openSession();
         try {
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            UserMapper userMapper = sqlSession3.getMapper(UserMapper.class);
             userMapper.insert(name);
-            sqlSession.commit();
+            sqlSession3.commit();
         }finally {
-            sqlSession.close();
+            sqlSession3.close();
         }
         return true;
     }
